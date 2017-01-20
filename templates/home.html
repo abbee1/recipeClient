@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h2>Välkommen till albin-mat</h2>
+            <table class="table table-striped">
+                <tr><th>Titel</th><th>category</th><th>author</th></tr>
+                <tr ng-repeat="recipe in recipes">
+                    <td>{{recipe.titel}}</td>
+                    <td>{{recipe.category}}</td>
+                    <td>{{recipe.author}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+    "elements": {},
+    "attributes": {
+        "ui-shref": {
+            "context": "a"
+        },
+        "ui-view": {
+            "context": "div"
+        },
+        "ui-sref": {}
+    }
+}
