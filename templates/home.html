@@ -2,14 +2,16 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
             <h2>Välkommen till albin-mat</h2>
-            <table class="table table-striped">
-                <tr><th>Titel</th><th>category</th><th>author</th></tr>
-                <tr ng-repeat="recipe in recipes">
-                    <td>{{recipe.titel}}</td>
-                    <td>{{recipe.category}}</td>
-                    <td>{{recipe.author}}</td>
-                </tr>
-            </table>
-        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4" ng-repeat="recipe in recipes">
+                <a ui-sref="recipe({id: recipe.id})">
+                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                </a>
+                <h3>
+                    <a ui-sref="recipe({id: recipe.id})">{{recipe.titel}}</a>
+                </h3>
+                <p>{{recipe.category}}</p>
+                <p>{{recipe.author}}</p>
+            </div>
 </div>

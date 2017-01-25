@@ -1,8 +1,30 @@
 <nav>
     <ul class="nav nav-tabs">
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-shref="loggin">Logga in</a></li>
+        <li><a ui-sref="home">Hem</a></li>
+        <li ng-show="!isLoggdIn" ui-shref="loggin" class="dropdown" >
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logga in <span class="caret"></span></a>
+            <form  ng-controller="logginCtrl" class="form dropdown-menu" >
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control"  placeholder="Username" required ng-model="username">
+                </div>
+                <div class="form-group" >
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password" required ng-model="password">
+                    <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" ng-click="loggIn()">Logga in</button>
+                </div>
+                <div class="bottom text-center">
+                    Ny här ? <a href="index.html#!/register"><b>Regristrera dig</b></a>
+                </div>
+            </form>
+        </li>
+        <li><a href="index.html#!/addRecipe" ng-show="isLoggdIn">Lägga till recept</a></li>
+        <li><a href="index.html#!/changeRecipe" ng-show="isLoggdIn">ändra recept</a></li>
     </ul>
+
 </nav>
 
 <div class="jumbotron">

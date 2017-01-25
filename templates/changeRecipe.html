@@ -1,0 +1,43 @@
+<div class="container" ng-show="isLoggdIn">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h2>ändra eller radera recept</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Edit</th><th>recept</th><th>kategori</th>
+                    <th>author</th><th>Remove</th>
+                </tr>
+                <tr ng-repeat="recipe in recipes">
+                    <td><button ng-click="fillForm(recipe.id, recipe.author)" class="btn btn-success" data-toggle="modal" data-target="#Modal">Edit</button></td>
+                    <td>{{recipe.titel}}</td>
+                    <td>{{recipe.category}}</td>
+                    <td>{{recipe.author}}</td>
+                    <td><a ng-click="removeRecipe(recipe.id, recipe.author)" href="index.html#!/changeRecipe">x</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="submitForm()">
+                    <label> Name <input ng-model="formName" type="text" /></label><br>
+                    <label> Category <input ng-model="formCat" type="number" /></label><br>
+                    <label> Author <input ng-model="formAut" type="number" /></label><br>
+                    <div class="modal-footer">
+                        <input class="btn btn-primary" type="submit" value="updatera" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
