@@ -66,16 +66,25 @@ module.controller("addRecipeCtrl", function ($scope, $rootScope, recipeService) 
     recipeService.getRecipes().then(function (data) {
         $scope.recipes = data.data;
     });
-    recipeService.getIngredients().then(function (data) {
-        $scope.ingredients = data.data;
-    });
-
     
     $scope.addRecipe = function () {
         recipeService.addRecipe($scope.name, $scope.instru, $scope.category, $scope.author);
     };
+
+});
+module.controller("addIngredientsCtrl", function ($scope, $rootScope, recipeService) {
+    recipeService.getIngredients().then(function (data) {
+        $scope.ingredients = data.data;
+    });
+    recipeService.getLastId().then(function (data) {
+        $scope.id = data.data;
+        console.log($scope.id[0].id);
+    });
+    
+    console.log($rootScope.i_id);
+    
     $scope.addIngredients = function () {
-        recipeService.addIngredients($scope.ingredients, $scope.amount);
+        recipeService.addIngredients($scope.ingredient, $scope.amount);
     };
 
 });
@@ -218,7 +227,7 @@ module.service("recipeService", function ($q, $http, $rootScope, $stateParams) {
             console.log(data);
         });
     };
-    this.addIngredients = function (ingredients, amount, i_id) {
+    this.addIngredients = function (ingredients, amount) {
         var data = {
             ingredients: ingredients,
             amount: amount
@@ -251,10 +260,7 @@ module.service("recipeService", function ($q, $http, $rootScope, $stateParams) {
             headers: {'Authorization': auth}
         }).then(function (data, status) {
             console.log("Match updaterad");
-        })
-                .error(function (data, status) {
-                    console.log("Det blev fel");
-                });
+        });
     };
     this.removeRecipe = function (id) {
         var url = "http://localhost:8080/recipe/webresources/recipe/" + id;
@@ -268,10 +274,17 @@ module.service("recipeService", function ($q, $http, $rootScope, $stateParams) {
         }).then(function (data, status) {
             console.log("recept borttagen");
             alert("YAS");
-        }).error(function (data, status) {
-            console.log("det blev fel");
-            alert("fuck");
         });
     };
-
+    this.getLastId = function () {
+        var deffer = $q.defer();
+        var url = "http://localhost:8080/recipe/webresources/recipeId";
+        $http({
+            url: url,
+            method: "GET"
+        }).then(function (data) {
+            deffer.resolve(data);
+        });
+        return deffer.promise;
+    };
 });
