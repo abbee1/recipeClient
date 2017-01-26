@@ -11,7 +11,35 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div ng-repeat="recipe in recipe">{{recipe.titel}}</div>
-        <div ng-repeat="ingred in ingredients">{{ingred.ingredients}}</div>
+        <div class="container">
+            <div class="row" ng-repeat="recipe in recipe">
+                <table class="table table-striped table-responsive">
+                    <tr>
+                        <th>Titel</th><th>Kategori</th><th>Skriven av</th>
+                    </tr>
+                    <tr>
+                        <td>{{recipe.titel}}</td>
+                        <td>{{recipe.category}}</td>
+                        <td>{{recipe.author}}</td>
+                    </tr>
+                </table>
+                <table class="table table-striped table-responsive">
+                    <tr>
+                        <th>ingridienser</th><th>mängd</th>
+                    </tr>
+                    <tr ng-repeat="ingred in ingredients">
+                        <td>{{ingred.ingredients}}</td>
+                        <td>{{ingred.amount}}</td>
+                    </tr>
+                </table>
+
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <h1>Instruktioner</h1>
+                        <p>{{recipe.instructions}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

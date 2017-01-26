@@ -66,9 +66,16 @@ module.controller("addRecipeCtrl", function ($scope, $rootScope, recipeService) 
     recipeService.getRecipes().then(function (data) {
         $scope.recipes = data.data;
     });
+    recipeService.getIngredients().then(function (data) {
+        $scope.ingredients = data.data;
+    });
 
+    
     $scope.addRecipe = function () {
         recipeService.addRecipe($scope.name, $scope.instru, $scope.category, $scope.author);
+    };
+    $scope.addIngredients = function () {
+        recipeService.addIngredients($scope.ingredients, $scope.amount);
     };
 
 });
@@ -84,7 +91,7 @@ module.controller("changeRecipeCtrl", function ($scope, $rootScope, recipeServic
         if ($rootScope.user == author) {
             return recipeService.removeRecipe(id);
         } else {
-            alert("du får inte radera denna din fitta");
+            alert("du får inte radera denna pga du skapade inte den");
         }
     };
 
@@ -133,6 +140,17 @@ module.service("recipeService", function ($q, $http, $rootScope, $stateParams) {
             url: url,
             method: "GET",
             params: {id: id}
+        }).then(function (data) {
+            deffer.resolve(data);
+        });
+        return deffer.promise;
+    };
+    this.getIngredients = function () {
+        var deffer = $q.defer();
+        var url = "http://localhost:8080/recipe/webresources/ingred";
+        $http({
+            url: url,
+            method: "GET",
         }).then(function (data) {
             deffer.resolve(data);
         });
@@ -200,6 +218,22 @@ module.service("recipeService", function ($q, $http, $rootScope, $stateParams) {
             console.log(data);
         });
     };
+    this.addIngredients = function (ingredients, amount, i_id) {
+        var data = {
+            ingredients: ingredients,
+            amount: amount
+        };
+        var url = "http://localhost:8080/recipe/webresources/ingred" + i_id;
+        var auth = "Basic " + window.btoa($rootScope.user + ":" + $rootScope.pass);
+        $http({
+            url: url,
+            method: "POST",
+            data: data,
+            headers: {'Authorization': auth}
+        }).then(function (data, status) {
+            console.log("ingredients tillagd");
+        });
+    };
     this.updateRecipe = function (id, name, category, author) {
         var data = {
             id: id,
@@ -232,7 +266,7 @@ module.service("recipeService", function ($q, $http, $rootScope, $stateParams) {
             method: "DELETE",
             headers: {'Authorization': auth}
         }).then(function (data, status) {
-            console.log("Match borttagen");
+            console.log("recept borttagen");
             alert("YAS");
         }).error(function (data, status) {
             console.log("det blev fel");

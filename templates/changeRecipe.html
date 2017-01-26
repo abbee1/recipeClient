@@ -1,18 +1,18 @@
 <div class="container" ng-show="isLoggdIn">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
-            <h2>ändra eller radera recept</h2>
+            <h2>Ändra eller radera recept</h2>
             <table class="table table-striped">
                 <tr>
-                    <th>Edit</th><th>recept</th><th>kategori</th>
-                    <th>author</th><th>Remove</th>
+                    <th>Redigera</th><th>recept</th><th>kategori</th>
+                    <th>Skriven av</th><th>Radera</th>
                 </tr>
                 <tr ng-repeat="recipe in recipes">
-                    <td><button ng-click="fillForm(recipe.id, recipe.author)" class="btn btn-success" data-toggle="modal" data-target="#Modal">Edit</button></td>
+                    <td><button ng-click="fillForm(recipe.id)" class="btn btn-success" data-toggle="modal" data-target="#Modal">Redigera</button></td>
                     <td>{{recipe.titel}}</td>
                     <td>{{recipe.category}}</td>
                     <td>{{recipe.author}}</td>
-                    <td><a ng-click="removeRecipe(recipe.id, recipe.author)" href="index.html#!/changeRecipe">x</a></td>
+                    <td><a ng-click="removeRecipe(recipe.id, recipe.author)" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
             </table>
         </div>
